@@ -31,12 +31,11 @@ template <class T> class FenwickTree2D{
     T neutral;
     vector<vector<T>> ft;
     auto (*f)(T, T) -> T;
-    auto (*u)(T, T) -> T;
 
     public:
-        FenwickTree2D(int n, int m, T neutral, T (*f)(T, T), T (*u)(T, T)): n(n), m(m), neutral(neutral){
+        FenwickTree2D(int n, int m, T neutral, T (*f)(T, T)): n(n), m(m), neutral(neutral){
             ft.assign(n + 1, vector<T>(m + 1, neutral));
-            this->f = f, this->u = u;
+            this->f = f;
         };
         T query(int i, int j){
             T ans = this->neutral;
@@ -51,7 +50,7 @@ template <class T> class FenwickTree2D{
         void update(int i, int j, T x){
             for(i++; i <= this->n; i += (i & -i))
                 for(int z = j + 1; z <= this->m; z += (z & -z))
-                    this->ft[i][z] = this->u(this->ft[i][z], x);
+                    this->ft[i][z] = this->f(this->ft[i][z], x);
         };
 };
 
@@ -62,7 +61,7 @@ int f(int a, int b){
 int main(){
     int n, m, q;
     scanf("%d %d %d", &n, &m, &q);
-    FenwickTree2D<int> aux(n, m, 0, f, f);
+    FenwickTree2D<int> aux(n, m, 0, f);
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
             int a;
