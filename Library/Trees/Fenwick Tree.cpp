@@ -16,9 +16,9 @@ template <class T> class FenwickTree{
     int n;
     T neutral;
     vector<T> ft;
-    auto (*f)(T, T) -> T;
+                auto (*f)(T, T) -> T;
     auto (*u)(T, T) -> T;
-    
+
     public:
         FenwickTree(int n, T neutral, T (*f)(T, T), T (*u)(T, T)): n(n){
             ft.assign(n + 1, neutral);
@@ -35,10 +35,10 @@ template <class T> class FenwickTree{
             for(i++; i > 0; i -= (i & -i))
                 ans = this->f(ans, this->ft[i]);
             return ans;
-        }
+        };
         T query(int i, int j){
             return this->query(j) - this->query(i - 1);
-        }
+        };
         void update(int i, T x){
             for(i++; i <= this->n; i += (i & -i))
                 this->ft[i] = this->u(this->ft[i], x);
