@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define INF             (1e9 + 7)
+#define SINF            (1e18)
+#define all(a)          a.begin(), a.end()
+#define fill(t,v)       memset(t, v, sizeof(t))
+#define sz(a)           ((int)(a.size()))
+#define LOG2(X)         ((unsigned) (8*sizeof(unsigned long long) - __builtin_clzll((X)) - 1))
+#define uIndex(x, v)     (upper_bound(all(v), x) - v.begin())
+#define lIndex(x, v)     (lower_bound(all(v), x) - v.begin())
+typedef long long ll;
+typedef pair<int, int> ii;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef vector<ii> vii;
+typedef vector<vii> vvii;
+typedef vector<pair<int, ii>> vpii;
+typedef set<int> si;
+typedef map<string, int> msi;
+typedef vector<string> vs;
+
+int main(){
+    ll n;
+    while(true){
+        scanf("%lld", &n);
+        if(n == 0)
+            break;
+        stack<ll> aux;
+        ll ans = 0, z = SINF;
+        for(ll i = 0; i < n; i++){
+            ll x;
+            scanf("%lld", &x);
+            if(!aux.empty())
+                ans = max(ans, 2 * min(x, aux.top())), z = min(z, x), ans = max(ans, (i + 1) * z);
+            aux.push(x);
+        }        
+        printf("%lld\n", ans);
+    }
+    return 0;
+}
