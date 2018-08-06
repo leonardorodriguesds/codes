@@ -1,0 +1,6 @@
+seconds = int(input())
+minutes = int(seconds/60)
+seconds = int(seconds-minutes*60)
+hours = int(minutes/60)
+minutes = int(minutes-hours*60)
+print("{}:{}:{}".format(hours, minutes, seconds))
