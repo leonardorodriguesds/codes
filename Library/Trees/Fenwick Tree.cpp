@@ -20,11 +20,11 @@ template <class T> class FenwickTree{
     auto (*u)(T, T) -> T;
 
     public:
-        FenwickTree(int n, T neutral, T (*f)(T, T), T (*u)(T, T)): n(n){
+        FenwickTree(int n, T neutral, T (*f)(T, T), T (*u)(T, T)): n(n), neutral(neutral){
             ft.assign(n + 1, neutral);
             this->f = f, this->u = u;
         };
-        FenwickTree(vector<T>& e, T neutral, T (*f)(T, T), T (*u)(T, T)): n(e.size()){
+        FenwickTree(vector<T>& e, T neutral, T (*f)(T, T), T (*u)(T, T)): n(e.size()), neutral(neutral){
             ft.assign(n + 1, neutral);
             this->f = f, this->u = u;
             for(int i = 0; i < n; i++)
