@@ -16,7 +16,7 @@ template <class T> class FenwickTree{
     int n;
     T neutral;
     vector<T> ft;
-                auto (*f)(T, T) -> T;
+    auto (*f)(T, T) -> T;
     auto (*u)(T, T) -> T;
 
     public:
