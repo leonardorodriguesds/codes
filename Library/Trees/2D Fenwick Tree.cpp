@@ -23,8 +23,8 @@ using namespace std;
    *3 => área de (0, 0) <-> (x1, y1),
    *4 => área de (0, 0) <-> (x2, y1 - 1);
    *5 => área de (0, 0) <-> (x2, y2),
-   
-   **ÁREA de (3) <-> (5): *5 - *4 - *2 + *1
+
+   **ÁREA de (3) <-> (5): *5 - *4 - *2 + *1 => Área de (x1, y1) <-> (x2, y2);
  */
 template <class T> class FenwickTree2D{
     int n, m;
