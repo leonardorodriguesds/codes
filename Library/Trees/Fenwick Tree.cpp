@@ -24,7 +24,7 @@ template <class T> class FenwickTree{
             ft.assign(n + 1, neutral);
             this->f = f, this->u = u;
         };
-        FenwickTree(vector<int>& e, T neutral, T (*f)(T, T), T (*u)(T, T)): n(e.size()){
+        FenwickTree(vector<T>& e, T neutral, T (*f)(T, T), T (*u)(T, T)): n(e.size()){
             ft.assign(n + 1, neutral);
             this->f = f, this->u = u;
             for(int i = 0; i < n; i++)
