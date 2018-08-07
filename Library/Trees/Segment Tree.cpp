@@ -40,17 +40,10 @@ template <class T> class SegmentTree{
         };
 };
 
-int f(int a, int b){
-    return a > b? a : b;
-}
-int u(int a, int b){
-    return b;
-}
-
 int main(){
     int n, q, x;
     scanf("%d %d", &n, &q);
-    SegmentTree<int> aux(n, 0, f, u);
+    SegmentTree<int> aux(n, 0, [](int a, int b)->int{ return (a > b)? a : b; }, [](int a, int b)->int{ return b; });
     for(int i = 0; i < n; i++){
         scanf("%d", &x);
         aux.update(i, x);

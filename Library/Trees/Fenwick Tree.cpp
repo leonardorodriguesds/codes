@@ -45,14 +45,10 @@ template <class T> class FenwickTree{
         };
 };
 
-int f(int a, int b){
-    return a + b;
-}
-
 int main(){
     int n, q;
     scanf("%d %d", &n, &q);
-    FenwickTree<int> aux(n, 0, f, f);
+    FenwickTree<int> aux(n, 0, [](int a, int b)->int{ return (a + b); }, [](int a, int b)->int{ return (a + b); });
     for(int i = 0; i < n; i++){
         int a;
         scanf("%d", &a);
