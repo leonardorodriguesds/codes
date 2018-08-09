@@ -34,6 +34,10 @@ template <class T> class PersistentSegmentTree{
             if(this->left != NULL) this->left->print();
             if(this->right != NULL) this->right->print();
         }
+        ~Node(){
+            if(this->left != NULL) delete this->left;
+            if(this->right != NULL) delete this->right; 
+        };
     };
 
     int nds, n;
@@ -96,6 +100,9 @@ template <class T> class PersistentSegmentTree{
             this->n = n;
             this->nds = 0;
             this->build(this->root[0], 0, n - 1, this->n - 1, aux);
+        };
+        ~PersistentSegmentTree(){
+            for(int i = 0; i <= this->nds; i++) delete this->root[i];
         };
         T query(int v, int l, int r){
             if(this->nds < v) return this->neutral;
