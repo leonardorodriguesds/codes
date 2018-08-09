@@ -29,11 +29,6 @@ template <class T> class PersistentSegmentTree{
 
         Node(){};
         Node(T element, Node* l, Node* r): element(element), left(l), right(r) {};
-        void print(){
-            cout << this->element << " ";
-            if(this->left != NULL) this->left->print();
-            if(this->right != NULL) this->right->print();
-        }
         ~Node(){
             if(this->left != NULL) delete this->left;
             if(this->right != NULL) delete this->right; 
@@ -58,7 +53,7 @@ template <class T> class PersistentSegmentTree{
         this->build(e->right, mid + 1, r, element);
         e->element = this->f(e->left->element, e->right->element);
     };
-    
+
     T query(Node* e, int l, int r, int i, int j){
         if(i > r or j < l or l > r) return this->neutral;
         if(i <= l and r <= j) return e->element;
@@ -113,10 +108,6 @@ template <class T> class PersistentSegmentTree{
             this->nds++;
             this->update(this->root[this->nds - 1], this->root[this->nds], 0, this->n - 1, i, x);
         };
-        void print(int v){
-            this->root[v]->print();
-            cout << endl;
-        }
 };
 
 int main(){
@@ -137,7 +128,7 @@ int main(){
             } else if(t == 2){
                 scanf("%d %d", &b, &v);
                 printf("%d\n", aux.query(v, a, b));
-            } else if(t == 3) aux.print(a);
+            }
         }
     }
     return 0;
