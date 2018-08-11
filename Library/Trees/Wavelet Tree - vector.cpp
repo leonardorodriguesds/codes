@@ -2,7 +2,7 @@
  * rank(i, j, k) => Retorna quantas vezes K aparece em [i, j];
  * quantile(i, j, k) => Retorna o K-ésimo elemento no intervalo [i, j];
  * 
- * Quando log(lb) > 4 * n é necessário comprimir o input;
+ * Quando log(lb) > log(n) é necessário comprimir o input para cabar em (4 * n);
  */
 
 #include <iostream>
