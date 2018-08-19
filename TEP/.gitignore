@@ -1,0 +1,8 @@
+*.bak
+prog
+*.o
+*.log
+*~
+*.swp
+*.d
+*.exe
