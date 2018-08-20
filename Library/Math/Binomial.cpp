@@ -14,7 +14,7 @@ void preprocessingHelper(){
     }
 }
 
-int preprocessingH(int n, int k){
+int binomial(int n, int k){
     ll dp[k + 1];
     dp[0] = 1;
     for(int i = 1; i <= n; i++){
