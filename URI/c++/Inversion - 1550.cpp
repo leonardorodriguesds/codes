@@ -19,6 +19,16 @@ typedef set<int> si;
 typedef map<string, int> msi;
 typedef vector<string> vs;
 
+int getReverseInt(int value) {
+    int resultNumber = 0;
+    for (int i = value; i != 0;) {
+        int d = i / 10;
+        resultNumber = (resultNumber - d) * 10 + i;
+        i = d;
+    }
+    return resultNumber;
+}
+
 int main(){
     int t;
     scanf("%d", &t);
@@ -28,27 +38,24 @@ int main(){
         queue<ii> aux;
         aux.emplace(initial, 0);
         int u, dt, ans = 0;
+        unordered_map<int, bool> controll;
+        controll[initial] = true;
         while(!(aux.empty())){
             tie(u, dt) = aux.front();
             aux.pop();
+            if((end - initial) <= dt){
+                ans = (end - initial);
+                break;
+            }
             if(u == end){
                 ans = dt;
                 break;
             }
+            controll[u + 1] = true;
             aux.emplace(u + 1, dt + 1);
-            if(u == 0 or u < 12)
-                continue;
-            int rev;
-            ostringstream convert; 
-            convert << u;
-            string temp = convert.str();
-            if(temp[0] > temp[sz(temp) - 1])
-                continue;
-            reverse(all(temp));
-            istringstream buf(temp);
-            buf >> rev;
-            if(rev > u)
-                aux.emplace(rev, dt + 1);
+            int rev = getReverseInt(u);
+            if(!controll.count(rev))
+                aux.emplace(getReverseInt(u), dt + 1);
         }
         printf("%d\n", ans);
     }

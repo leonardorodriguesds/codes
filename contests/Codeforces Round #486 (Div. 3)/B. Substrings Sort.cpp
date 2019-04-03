@@ -4,14 +4,12 @@ using namespace std;
 int main(){
     int n;
     scanf("%d", &n);
-    vector<string> words;
-    vector<pair<long long, int>> sequence;
+    vector<pair<string, int>> sequence;
     map<int, int> letters[n];
     bool ans = true;
     for(int i = 0; i < n; i++){
         string word;
-        cin >> words[i];
-        word = words[i];
+        cin >> word;
         int num = 0;
         for(int j = 0; j < word.size(); j++){
             num += (1 << word[j] - 'a');
@@ -25,7 +23,6 @@ int main(){
         int i = wd.second;
         int c = sequence[j + 1].second;
         for(auto letter: letters[i]){
-            printf("%c => %d ", letter.first, letter.second);
             if(letters[c][letter.first] < letter.second){
                 ans = false;
                 break;

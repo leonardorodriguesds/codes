@@ -25,7 +25,6 @@ typedef map<string, int> msi;
 typedef vector<string> vs;
 
 vi aux;
-
 void solveIt(int x){
     int i = 2, sq = sqrt(x) + 1;
     while(i <= sq and x > 1){
