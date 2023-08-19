@@ -37,26 +37,63 @@ typedef vector<string> vs;
 typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
-bool areEqual(double a, double b) {
-    return std::fabs(a - b) < EPS;
+struct Node {
+    char data;
+    Node* left;
+    Node* right;
+
+    Node(char val) : data(val), left(nullptr), right(nullptr) {}
+};
+
+Node* buildTree(const string& prefix, const string& infix, int& preIndex, int inStart, int inEnd, unordered_map<char, int>& inIndex) {
+    if (inStart > inEnd) {
+        return nullptr;
+    }
+
+    char currentRoot = prefix[preIndex];
+    ++preIndex;
+
+    Node* root = new Node(currentRoot);
+
+    if (inStart == inEnd) {
+        return root;
+    }
+
+    int inIndexVal = inIndex[currentRoot];
+
+    root->left = buildTree(prefix, infix, preIndex, inStart, inIndexVal - 1, inIndex);
+    root->right = buildTree(prefix, infix, preIndex, inIndexVal + 1, inEnd, inIndex);
+
+    return root;
 }
 
-int main(){
-	// ifstream cin("input.txt");
-	double w, l, R, r;
-	while(cin >> w >> l >> R >> r){
-		if(w == 0 && l == 0 && R == 0 && r == 0)
-			break;
-		bool res = false;
-		double maxD = 2.0 * max(R, r);
-		res = (w >= (R + r) * 2 && l >= maxD) || (l >= (R + r) * 2 && w >= maxD);
-		if (!res) {
-			double H = sqrt(2 * (R * R)), h = sqrt(2 * (r * r));
-			double hip = 2 * H + 2 * h;
-			double cateto = (1 * (sqrt(2.0))) * hip;
-			res = (areEqual(w, cateto) || w > cateto) && (areEqual(l, cateto) || l > cateto);
-		}
-		cout << (res ? "S" : "N") << endl;
-	}
-	return 0;
+void printPostorder(Node* root) {
+    if (root == nullptr) {
+        return;
+    }
+
+    printPostorder(root->left);
+    printPostorder(root->right);
+    cout << root->data;
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int c;
+        string prefix, infix;
+        cin >> c >> prefix >> infix;
+        unordered_map<char, int> inIndex;
+        for (int i = 0; i < infix.size(); ++i) {
+            inIndex[infix[i]] = i;
+        }
+
+        int preIndex = 0;
+        Node* root = buildTree(prefix, infix, preIndex, 0, infix.size() - 1, inIndex);
+
+        printPostorder(root);
+        cout << endl;
+    }
+    return 0;
 }

@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <sys/resource.h>
 #define DEBUG false
 #define debugf if (DEBUG) printf
 #define MAXN 200309
@@ -37,26 +38,56 @@ typedef vector<string> vs;
 typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
-bool areEqual(double a, double b) {
-    return std::fabs(a - b) < EPS;
+void setstack( void )
+{
+  const rlim_t kStackSize = 64L * 1024L * 1024L;   // min stack size = 64 Mb
+  struct rlimit rl;
+  int result = getrlimit( RLIMIT_STACK, &rl);
+  if( result == 0 && rl.rlim_cur < kStackSize )
+  {
+    rl.rlim_cur = kStackSize;
+    result = setrlimit( RLIMIT_STACK, &rl);
+    if( result != 0 )
+      fprintf(stderr, "setrlimit returned result = %d\n", result);
+  }
 }
 
-int main(){
-	// ifstream cin("input.txt");
-	double w, l, R, r;
-	while(cin >> w >> l >> R >> r){
-		if(w == 0 && l == 0 && R == 0 && r == 0)
-			break;
-		bool res = false;
-		double maxD = 2.0 * max(R, r);
-		res = (w >= (R + r) * 2 && l >= maxD) || (l >= (R + r) * 2 && w >= maxD);
-		if (!res) {
-			double H = sqrt(2 * (R * R)), h = sqrt(2 * (r * r));
-			double hip = 2 * H + 2 * h;
-			double cateto = (1 * (sqrt(2.0))) * hip;
-			res = (areEqual(w, cateto) || w > cateto) && (areEqual(l, cateto) || l > cateto);
-		}
-		cout << (res ? "S" : "N") << endl;
-	}
-	return 0;
+int n, m;
+char draw[1024][1024];
+
+void fill_draw(int i, int j) {
+    if (i < 0 || j < 0 || i > n || j > m)
+        return;
+    if (draw[i][j] == '.') {
+        draw[i][j] = '0';
+        fill_draw(i - 1, j);
+        fill_draw(i + 1, j);
+        fill_draw(i, j - 1);
+        fill_draw(i, j + 1);
+    }
+}
+
+void init_problem() {
+    FOR(i, n) {
+        cin >> draw[i];
+    }
+
+    int res = 0;
+    FOR(i, n) {
+        FOR(j, m) {
+            if (draw[i][j] == '.') {
+                res++;
+                fill_draw(i, j);
+            }
+        }
+    }
+    cout << res << endl;
+}
+ 
+int main() {
+    setstack();
+    ios_base::sync_with_stdio(false); 
+    cin >> n >> m;
+    init_problem();
+    return 0;
 }

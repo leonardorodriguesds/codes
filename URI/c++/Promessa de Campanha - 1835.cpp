@@ -37,26 +37,53 @@ typedef vector<string> vs;
 typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
-bool areEqual(double a, double b) {
-    return std::fabs(a - b) < EPS;
+void dfs(int u, vi& visited, vvi& graph) {
+    visited[u] = 1;
+    
+    for(int v: graph[u]) {
+        if (!~visited[v]) {
+            dfs(v, visited, graph);
+        }
+    }
 }
 
-int main(){
-	// ifstream cin("input.txt");
-	double w, l, R, r;
-	while(cin >> w >> l >> R >> r){
-		if(w == 0 && l == 0 && R == 0 && r == 0)
-			break;
-		bool res = false;
-		double maxD = 2.0 * max(R, r);
-		res = (w >= (R + r) * 2 && l >= maxD) || (l >= (R + r) * 2 && w >= maxD);
-		if (!res) {
-			double H = sqrt(2 * (R * R)), h = sqrt(2 * (r * r));
-			double hip = 2 * H + 2 * h;
-			double cateto = (1 * (sqrt(2.0))) * hip;
-			res = (areEqual(w, cateto) || w > cateto) && (areEqual(l, cateto) || l > cateto);
-		}
-		cout << (res ? "S" : "N") << endl;
-	}
-	return 0;
+int init_problem() {
+    int n, m;
+    scanf2(n, m);
+    vvi graph(n + 1);
+
+    FOR(i, m) {
+        int x, y;
+        scanf2(x, y);
+
+        graph[x].push_back(y);
+        graph[y].push_back(x);
+    }
+
+    int res = 0;
+    vi visited(n, -1);
+
+    FOR(i, n) {
+        if (!~visited[i]) {
+            res++;
+            dfs(i, visited, graph);
+        }
+    }
+
+    return 0;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false); 
+    int t;
+    cin >> t;
+    FOR1(i, t) {
+        auto res = init_problem() - 1;
+        if (res == 0) {
+            cout << "Caso #" << i << ": a promessa foi cumprida" << endl;
+        } else {
+            cout << "Caso #" << i << ": ainda falta(m) " << res << " estrada(s)" << endl;
+        }
+    }
+    return 0;
 }
