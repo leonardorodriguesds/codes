@@ -989,6 +989,20 @@
             "};"
         ],
         "description": "Class for Persistent segment tree"
-    }
-	  
+    },
+    "Fast Exponentiation Function": {
+        "prefix": "fast_exp",
+        "body": [
+            "int fast_exp(int base, int exp) {",
+            "    int result = 1;",
+            "    while (exp > 0) {",
+            "        if (exp % 2 == 1) result = (1LL * result * base) % MOD;",
+            "        base = (1LL * base * base) % MOD;",
+            "        exp /= 2;",
+            "    }",
+            "    return result;",
+            "}"
+        ],
+        "description": "Function to perform fast exponentiation"
+    }	  
 }
