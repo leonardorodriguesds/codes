@@ -37,40 +37,17 @@ typedef vector<string> vs;
 typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
-class Solution {
-public:
-    vvi mem;
-    vector<int> getRow(int rowIndex) {
-        mem.push_back({1});
-
-        FOR1(i, rowIndex) {
-            vi line = vi();
-            line.push_back(1);
-            FOR1(j, i - 1) {
-                line.push_back(mem[i - 1][j - 1] + mem[i - 1][j]);
-            }
-            line.push_back(1);
-            mem.push_back(line);
-        }
-        return mem[rowIndex];
-    }
-};
-
 int main() {
     ios_base::sync_with_stdio(false); 
-    auto sol = Solution();
-    auto res = sol.getRow(3);
+    ll n;
+    cin >> n;
 
-    cout << "==> [";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; 
+    while(n != 1) {
+        cout << n << " ";
+        if(n & 1) n = 3*n + 1;
+        else n /= 2;
+    }
 
-    /* res = sol.getRow(1);
-
-    cout << "[";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; */
+    cout << n << endl;
     return 0;
 }

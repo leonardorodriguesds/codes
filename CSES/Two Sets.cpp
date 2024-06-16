@@ -29,7 +29,7 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> ii;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<vi> vvi;
 typedef vector<ii> vii;
 typedef vector<pair<int, ii>> vpii;
@@ -37,40 +37,41 @@ typedef vector<string> vs;
 typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
-class Solution {
-public:
-    vvi mem;
-    vector<int> getRow(int rowIndex) {
-        mem.push_back({1});
-
-        FOR1(i, rowIndex) {
-            vi line = vi();
-            line.push_back(1);
-            FOR1(j, i - 1) {
-                line.push_back(mem[i - 1][j - 1] + mem[i - 1][j]);
-            }
-            line.push_back(1);
-            mem.push_back(line);
-        }
-        return mem[rowIndex];
+void init_problem(ll n) {
+    ll total = (n * (n + 1)) / 2;
+    if (total % 2 != 0) {
+        cout << "NO" << endl;
+        return;
     }
-};
+    ll target = total / 2, current_sum = 0;
+    
+    vi set1, set2;
+
+    REP1(i, n) {
+        if (current_sum + i <= target) {
+            current_sum += i;
+            set1.push_back(i);
+        } else {
+            set2.push_back(i);
+        }
+    }
+
+    cout << "YES" << endl;
+    cout << set1.size() << endl;
+    for(auto it = set1.rbegin(); it != set1.rend(); ++it)
+        cout << *it << " ";
+    cout << endl;
+
+    cout << set2.size() << endl;
+    for(auto it = set2.rbegin(); it != set2.rend(); ++it)
+        cout << *it << " ";
+    cout << endl;
+}
 
 int main() {
     ios_base::sync_with_stdio(false); 
-    auto sol = Solution();
-    auto res = sol.getRow(3);
-
-    cout << "==> [";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; 
-
-    /* res = sol.getRow(1);
-
-    cout << "[";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; */
+    cin.tie(0); 
+    int n; cin >> n;
+    init_problem(n);
     return 0;
 }

@@ -38,39 +38,38 @@ typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
 class Solution {
-public:
-    vvi mem;
-    vector<int> getRow(int rowIndex) {
-        mem.push_back({1});
+    int mem[100002];
+    int dp(int s, int low, int high, int zero, int one) {
+        if (s > high)
+            return 0;
+        
+        int& ans = mem[s];
+        if (!~ans) {
+            ans = 0;
+            if (low <= s && s <= high)
+                ans += 1;
 
-        FOR1(i, rowIndex) {
-            vi line = vi();
-            line.push_back(1);
-            FOR1(j, i - 1) {
-                line.push_back(mem[i - 1][j - 1] + mem[i - 1][j]);
-            }
-            line.push_back(1);
-            mem.push_back(line);
+            ans += dp(s + zero, low, high, zero, one) + dp(s + one, low, high, zero, one) % MOD;
         }
-        return mem[rowIndex];
+        return ans % MOD;
+    }
+public:
+    int countGoodStrings(int low, int high, int zero, int one) {
+        fill(mem, -1);
+        return dp(0, low, high, zero, one);
     }
 };
 
 int main() {
     ios_base::sync_with_stdio(false); 
     auto sol = Solution();
-    auto res = sol.getRow(3);
 
-    cout << "==> [";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; 
+    cout << sol.countGoodStrings(3, 3, 1, 1) << endl;
 
-    /* res = sol.getRow(1);
+    cout << sol.countGoodStrings(2, 3, 1, 2) << endl;
 
-    cout << "[";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; */
+    cout << sol.countGoodStrings(20, 20, 1, 6) << endl;
+
+    cout << sol.countGoodStrings(200, 200, 10, 1) << endl;
     return 0;
 }

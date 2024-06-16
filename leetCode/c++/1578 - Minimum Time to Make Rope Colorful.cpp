@@ -39,38 +39,43 @@ typedef vector<pqi> vpqi;
 
 class Solution {
 public:
-    vvi mem;
-    vector<int> getRow(int rowIndex) {
-        mem.push_back({1});
+    int minCost(string colors, vector<int>& neededTime) {
+        int n = colors.size();
+        int totalMinTime = 0;
 
-        FOR1(i, rowIndex) {
-            vi line = vi();
-            line.push_back(1);
-            FOR1(j, i - 1) {
-                line.push_back(mem[i - 1][j - 1] + mem[i - 1][j]);
+        for (int i = 1; i < n; ++i) {
+            if (colors[i] == colors[i - 1]) {
+                if (neededTime[i] < neededTime[i - 1]) {
+                    totalMinTime += neededTime[i];
+                    neededTime[i] = neededTime[i - 1];
+                } else {
+                    totalMinTime += neededTime[i - 1];
+                }
             }
-            line.push_back(1);
-            mem.push_back(line);
         }
-        return mem[rowIndex];
+
+        return totalMinTime;
     }
 };
 
 int main() {
     ios_base::sync_with_stdio(false); 
-    auto sol = Solution();
-    auto res = sol.getRow(3);
+    auto sol  = Solution();
+    vi in = {1,2,3,4,5};
 
-    cout << "==> [";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; 
+    cout << sol.minCost("abaac", in) << endl;
 
-    /* res = sol.getRow(1);
+    in = {1,2,3};
+    cout << sol.minCost("abc", in) << endl;
 
-    cout << "[";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; */
+    in = {1,2,3,4,1};
+    cout << sol.minCost("aabaa", in) << endl;
+
+    in = {4,9,3,8,8,9};
+    cout << sol.minCost("bbbaaa", in) << endl;
+
+    in = {3,5,10,7,5,3,5,5,4,8,1};
+    cout << sol.minCost("aaabbbabbbb", in) << endl;
+
     return 0;
 }

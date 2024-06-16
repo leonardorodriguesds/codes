@@ -39,38 +39,33 @@ typedef vector<pqi> vpqi;
 
 class Solution {
 public:
-    vvi mem;
-    vector<int> getRow(int rowIndex) {
-        mem.push_back({1});
+    string compressedString(string word) {
+        string res = "";
+        char curr = word[0];
+        int c = 1, n = word.size();
 
-        FOR1(i, rowIndex) {
-            vi line = vi();
-            line.push_back(1);
-            FOR1(j, i - 1) {
-                line.push_back(mem[i - 1][j - 1] + mem[i - 1][j]);
+        FOR1(i, n - 1) {
+            if (word[i] == curr && c < 9)
+                c++;
+            else {
+                res += "" + to_string(c) + curr;
+                curr = word[i], c = 1;
             }
-            line.push_back(1);
-            mem.push_back(line);
         }
-        return mem[rowIndex];
+
+        res += to_string(c) + curr;
+
+        return res;
     }
 };
 
 int main() {
     ios_base::sync_with_stdio(false); 
+    cin.tie(0); 
     auto sol = Solution();
-    auto res = sol.getRow(3);
 
-    cout << "==> [";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; 
+    cout << sol.compressedString("abcde") << endl;
 
-    /* res = sol.getRow(1);
-
-    cout << "[";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; */
+    cout << sol.compressedString("aaaaaaaaaaaaaabb") << endl;
     return 0;
 }

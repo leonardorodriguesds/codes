@@ -38,39 +38,48 @@ typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
 class Solution {
-public:
-    vvi mem;
-    vector<int> getRow(int rowIndex) {
-        mem.push_back({1});
+    ll mem[100001];
+    ll dp(int i, int n, map<int, vvi>& cache) {
+        if (i >= n)
+            return 0;
 
-        FOR1(i, rowIndex) {
-            vi line = vi();
-            line.push_back(1);
-            FOR1(j, i - 1) {
-                line.push_back(mem[i - 1][j - 1] + mem[i - 1][j]);
-            }
-            line.push_back(1);
-            mem.push_back(line);
+        ll& ans = mem[i];
+
+        if (!~ans) {
+            ans = dp(i + 1, n, cache);
+            vvi offers = cache[i];
+            int m = offers.size();
+            FOR(j, m)
+                ans = max(offers[j][2] + dp(offers[j][1] + 1, n, cache), ans);
         }
-        return mem[rowIndex];
+
+        return ans;
+    }
+public:
+    ll maximizeTheProfit(int n, vvi& offers) {
+        fill(mem, -1);
+        map<int, vvi> cache = map<int, vvi>();
+        int m = offers.size();
+        FOR(i, m) {
+            vi offer = offers[i];
+            vvi house_offers = vvi();
+            if (cache.find(offer[0]) != cache.end())
+                house_offers = cache[offer[0]];
+
+            house_offers.push_back(offer);
+            cache[offer[0]] = house_offers;
+        }
+        return dp(0, n, cache);
     }
 };
 
 int main() {
     ios_base::sync_with_stdio(false); 
     auto sol = Solution();
-    auto res = sol.getRow(3);
+    vvi offers = {{0,0,1},{0,2,2},{1,3,2}};
+    cout << sol.maximizeTheProfit(5, offers) << endl;
 
-    cout << "==> [";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; 
-
-    /* res = sol.getRow(1);
-
-    cout << "[";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; */
+    offers = {{0,0,1},{0,2,10},{1,3,2}};
+    cout << sol.maximizeTheProfit(5, offers) << endl;
     return 0;
 }

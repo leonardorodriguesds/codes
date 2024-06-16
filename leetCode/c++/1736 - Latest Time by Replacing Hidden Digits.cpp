@@ -39,38 +39,27 @@ typedef vector<pqi> vpqi;
 
 class Solution {
 public:
-    vvi mem;
-    vector<int> getRow(int rowIndex) {
-        mem.push_back({1});
+    string maximumTime(string time) {
 
-        FOR1(i, rowIndex) {
-            vi line = vi();
-            line.push_back(1);
-            FOR1(j, i - 1) {
-                line.push_back(mem[i - 1][j - 1] + mem[i - 1][j]);
-            }
-            line.push_back(1);
-            mem.push_back(line);
-        }
-        return mem[rowIndex];
+        if (time[0] == '?')
+            time[0] = (time[1] == '?' || time[1] <= '3') ? '2' : '1';
+        if (time[1] == '?')
+            time[1] = time[0] == '2' ? '3' : '9';
+        if (time[3] == '?')
+            time[3] = '5';
+        if (time[4] == '?')
+            time[4] = '9';
+
+        return time;
     }
 };
 
 int main() {
     ios_base::sync_with_stdio(false); 
     auto sol = Solution();
-    auto res = sol.getRow(3);
 
-    cout << "==> [";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; 
+    cout << sol.maximumTime("?4:03") << endl;
 
-    /* res = sol.getRow(1);
-
-    cout << "[";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; */
+    cout << sol.maximumTime("??:3?") << endl;
     return 0;
 }

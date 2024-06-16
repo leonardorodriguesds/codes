@@ -17,7 +17,7 @@
 #define scanf2(a, b)    (scanf("%d %d", &a, &b))
 #define scanf3(a, b, c) (scanf("%d %d %d", &a, &b, &c))
 #define FOR(x,n) for(int x = 0; (x)<int(n); (x)++)
-#define FOR1(x,n) for(int x = 1; (x)<=int(n); (x)++)
+#define FOR1(x,n) for(ll x = 1; (x)<=ll(n); (x)++)
 #define REP(x,n) for(int x = int(n)-1; (x)>=0; (x)--)
 #define REP1(x,n) for(int x = int(n); (x)>0; (x)--)
 #define pb push_back
@@ -37,40 +37,12 @@ typedef vector<string> vs;
 typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
-class Solution {
-public:
-    vvi mem;
-    vector<int> getRow(int rowIndex) {
-        mem.push_back({1});
-
-        FOR1(i, rowIndex) {
-            vi line = vi();
-            line.push_back(1);
-            FOR1(j, i - 1) {
-                line.push_back(mem[i - 1][j - 1] + mem[i - 1][j]);
-            }
-            line.push_back(1);
-            mem.push_back(line);
-        }
-        return mem[rowIndex];
-    }
-};
-
 int main() {
     ios_base::sync_with_stdio(false); 
-    auto sol = Solution();
-    auto res = sol.getRow(3);
-
-    cout << "==> [";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; 
-
-    /* res = sol.getRow(1);
-
-    cout << "[";
-    for(auto x: res)
-        cout << x << ", ";
-    cout << "]"; */
+    cin.tie(0); 
+    ll t; cin >> t;
+    FOR1(n, t) {
+        cout << (((n * n) * (((n * n) - 1))) / 2) - (4 * (n - 1) * (n - 2)) << endl;
+    }
     return 0;
 }
