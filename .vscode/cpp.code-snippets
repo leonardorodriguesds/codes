@@ -43,6 +43,7 @@
 		  "#define se second",
 		  "#define mp make_pair",
 		  "#define mset(x, y) memset(&x, (y), sizeof(x))",
+          "#define bl \"\\n\"",
 		  "using namespace std;",
 		  "typedef long long ll;",
 		  "typedef pair<int, int> ii;",
