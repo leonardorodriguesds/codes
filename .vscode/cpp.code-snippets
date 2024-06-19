@@ -48,7 +48,7 @@
 		  "#define mp make_pair",
 		  "#define mset(x, y) memset(&x, (y), sizeof(x))",
           "#define bl \"\\n\"",
-          "#define debugarr(arr)   if (DEBUG) for(auto a: arr) { cout << a << \" \"; } cout << bl;",
+          "#define debugarr(arr)   if (DEBUG) { for(auto a: arr) { cout << a << \" \"; } cout << bl; }",
 		  "using namespace std;",
 		  "typedef long long ll;",
 		  "typedef pair<int, int> ii;",

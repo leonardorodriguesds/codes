@@ -31,7 +31,7 @@
 #define mp make_pair
 #define mset(x, y) memset(&x, (y), sizeof(x))
 #define bl "\n"
-#define debugarr(arr)   if (DEBUG) for(auto a: arr) { cout << a << " "; } cout << bl;
+#define debugarr(arr)   if (DEBUG) { for(auto a: arr) { cout << a << " "; } cout << bl; }
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> ii;
@@ -52,9 +52,12 @@ int main() {
     FOR(i,n) cin >> w[i];
     sort(w, w+n);
     debugarr(w);
-    int ans = 0, i = 0, j = 0;
-    while (i < n) {
-        if (w[i++] + w[i] <= x) i++;
+    int ans = 0, i = 0, j = n - 1;
+    while (i <= j) {
+        if (w[i] + w[j] <= x) {
+            i++;
+            j--;
+        } else j--;
         ans++;
     }
     cout << ans << endl;
