@@ -30,7 +30,7 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> ii;
-typedef vector<ll> vi;
+typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<ii> vii;
 typedef vector<pair<int, ii>> vpii;
@@ -38,28 +38,38 @@ typedef vector<string> vs;
 typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
-vi weights;
-ll n, ans = INF;
+int ans = 0, n = 8;
+int cols[10], diag1[20], diag2[20];
 
-void backtracking(ll i, ll l, ll r) {
-    if (i == n) {
-        ans = min(abs(l - r), ans);
+void backtrancking(int y, vvi& board) {
+    if (y == n) {
+        ans += 1;
         return;
     }
-    backtracking(i + 1, l + weights[i], r);
-    
-    backtracking(i + 1, l, r + weights[i]);
+    FOR(i, n) {
+        if (cols[i] || diag1[i+y] || diag2[i-y+n-1] || !~board[y][i]) continue;
+        cols[i] = diag1[i+y] = diag2[i-y+n-1] = 1;
+        backtrancking(y + 1, board);
+        cols[i] = diag1[i+y] = diag2[i-y+n-1] = 0;
+    }
 }
 
 int main() {
     ios_base::sync_with_stdio(false); 
     cin.tie(0); 
-    cin >> n;
-    weights = vi(n);
-    FOR(i,n)
-        cin >> weights[i];
-    
-    backtracking(0, 0, 0);
+    fill(cols, 0);
+    fill(diag1, 0);
+    fill(diag2, 0);
+    string str;
+    vvi board(8, vi(8, 0));
+    ans = 0;
+    FOR(i, n) {
+        cin >> str;
+        FOR(j, n) {
+            board[i][j] = (str[j] == '*' ? -1 : 0);
+        }
+    }
+    backtrancking(0, board);
     cout << ans << bl;
     return 0;
 }

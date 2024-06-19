@@ -1,5 +1,9 @@
 #include <bits/stdc++.h>
-#define DEBUG false
+#ifdef ONLINE_JUDGE
+    #define DEBUG false
+#else
+    #define DEBUG true
+#endif
 #define debugf if (DEBUG) printf
 #define MAXN 200309
 #define MAXM 900009
@@ -27,10 +31,11 @@
 #define mp make_pair
 #define mset(x, y) memset(&x, (y), sizeof(x))
 #define bl "\n"
+#define debugarr(arr)   if (DEBUG) for(auto a: arr) { cout << a << " "; } cout << bl;
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> ii;
-typedef vector<ll> vi;
+typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<ii> vii;
 typedef vector<pair<int, ii>> vpii;
@@ -38,28 +43,20 @@ typedef vector<string> vs;
 typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
-vi weights;
-ll n, ans = INF;
-
-void backtracking(ll i, ll l, ll r) {
-    if (i == n) {
-        ans = min(abs(l - r), ans);
-        return;
-    }
-    backtracking(i + 1, l + weights[i], r);
-    
-    backtracking(i + 1, l, r + weights[i]);
-}
-
 int main() {
     ios_base::sync_with_stdio(false); 
     cin.tie(0); 
-    cin >> n;
-    weights = vi(n);
-    FOR(i,n)
-        cin >> weights[i];
     
-    backtracking(0, 0, 0);
-    cout << ans << bl;
+    int n, x; cin >> n >> x;
+    int w[n];
+    FOR(i,n) cin >> w[i];
+    sort(w, w+n);
+    debugarr(w);
+    int ans = 0, i = 0, j = 0;
+    while (i < n) {
+        if (w[i++] + w[i] <= x) i++;
+        ans++;
+    }
+    cout << ans << endl;
     return 0;
 }
