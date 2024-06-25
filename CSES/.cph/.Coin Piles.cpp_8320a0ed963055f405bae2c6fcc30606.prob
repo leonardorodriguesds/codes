@@ -1,0 +1,1 @@
+{"name":"Local: Coin Piles","url":"/home/wsl/development/codes/CSES/Coin Piles.cpp","tests":[{"id":1719265268640,"input":"3\n2 1\n2 2\n3 3","output":"YES\nNO\nYES"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/wsl/development/codes/CSES/Coin Piles.cpp","group":"local","local":true}

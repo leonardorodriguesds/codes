@@ -1,5 +1,9 @@
 #include <bits/stdc++.h>
-#define DEBUG false
+#ifdef ONLINE_JUDGE
+    #define DEBUG false
+#else
+    #define DEBUG true
+#endif
 #define debugf if (DEBUG) printf
 #define MAXN 200309
 #define MAXM 900009
@@ -26,10 +30,12 @@
 #define se second
 #define mp make_pair
 #define mset(x, y) memset(&x, (y), sizeof(x))
+#define bl "\n"
+#define debugarr(arr)   if (DEBUG) { for(auto a: arr) { cout << a << " "; } cout << bl; }
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> ii;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<vi> vvi;
 typedef vector<ii> vii;
 typedef vector<pair<int, ii>> vpii;
@@ -37,20 +43,23 @@ typedef vector<string> vs;
 typedef priority_queue<int, vector<int>, greater<int>> pqi;
 typedef vector<pqi> vpqi;
 
-void init_problem(int n) {
-    
-}
-
 int main() {
     ios_base::sync_with_stdio(false); 
     cin.tie(0); 
-    int t; cin >> t;
-    while (t--) {
-        int a, b;
-        cin >> a >> b;
+    int n; cin >> n;
+    vi v(n);
+    FOR(i, n) cin >> v[i];
 
-        int diff = abs(a - b);
-        cout << ((diff % 3 == 0 && a >= 2 * (diff / 3) && b >= diff / 3) ? "YES" : "NO") << endl;
+    sort(all(v));
+
+    ll msp = 1;
+    FOR(i, n) {
+        if (v[i] > msp) {
+            break;
+        }
+        msp += v[i];
     }
+
+    cout << msp << bl;
     return 0;
 }
