@@ -1,0 +1,1 @@
+{"name":"Local: Minimizing Coins I","url":"/home/wsl/development/codes/CSES/Minimizing Coins I.cpp","tests":[{"id":1720278510917,"input":"3 9\n2 3 5","output":"8"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/wsl/development/codes/CSES/Minimizing Coins I.cpp","group":"local","local":true}
