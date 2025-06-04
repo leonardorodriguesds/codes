@@ -9,7 +9,7 @@ SCENARIO( "strong borders computation", "[string]" )
     {
         string pattern;
 
-        WHEN ( "all characteres in pattern are differente" )
+        WHEN ( "all characters in pattern are different" )
         {
             pattern = "abcdef";
 
@@ -22,7 +22,7 @@ SCENARIO( "strong borders computation", "[string]" )
             }
         }
 
-        WHEN ( "all characteres in pattern are the same" )
+        WHEN ( "all characters in pattern are the same" )
         {
             pattern = "aaaaaaaaa";
 

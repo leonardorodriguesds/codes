@@ -91,7 +91,7 @@ SCENARIO( "edit distance computation", "[string]" )
             }
         }
 
-        WHEN ( "s has more characteres then t and all chars of t are in s" )
+        WHEN ( "s has more characters than t and all chars of t are in s" )
         {
             s = "aspectos";
             t = "seco";
@@ -103,7 +103,7 @@ SCENARIO( "edit distance computation", "[string]" )
             }
         }
 
-        WHEN ( "s has less characteres then t and all chars of s are in t" )
+        WHEN ( "s has fewer characters than t and all chars of s are in t" )
         {
             s = "fga";
             t = "formigas";

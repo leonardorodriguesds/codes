@@ -40,7 +40,7 @@ SCENARIO( "longest palindrome subsequence", "[string]" )
             }
         }
 
-        WHEN ( "all characteres of s are different" )
+        WHEN ( "all characters of s are different" )
         {
             s = "abcedfghijk";
 

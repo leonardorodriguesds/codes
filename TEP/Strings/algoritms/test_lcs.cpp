@@ -43,7 +43,7 @@ SCENARIO( "longest common substring", "[string]" )
             }
         }
 
-        WHEN ( "s and t has no common characteres" )
+        WHEN ( "s and t have no common characters" )
         {
             s = "abcedfghijk";
             t = "123456";
