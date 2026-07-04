@@ -35,7 +35,7 @@ SCENARIO( "naive trie construction", "[string]" )
 
         WHEN ( "pattern is equals a non-empty string" )
         {
-            THEN( "each node corresponde to a unique substring of pattern" )
+            THEN( "each node corresponds to a unique substring of pattern" )
             {
                 pattern = "banana";
                 build_naive(pattern);
@@ -140,7 +140,7 @@ SCENARIO( "naive trie construction with end-marker", "[string]" )
 
         WHEN ( "pattern is equals a non-empty string" )
         {
-            THEN( "each node corresponde to a unique substring of pattern" )
+            THEN( "each node corresponds to a unique substring of pattern" )
             {
                 pattern = "banana";
                 build_naive_with_marker(pattern);
@@ -230,7 +230,7 @@ SCENARIO( "online trie construction", "[string]" )
 
         WHEN ( "pattern is equals a non-empty string" )
         {
-            THEN( "each node corresponde to a unique substring of pattern" )
+            THEN( "each node corresponds to a unique substring of pattern" )
             {
                 pattern = "banana";
                 build_online(pattern);
